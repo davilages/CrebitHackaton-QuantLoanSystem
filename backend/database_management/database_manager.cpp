@@ -65,7 +65,7 @@ void DataBaseManager::createDatabase() {
         pqxx::connection admin_conn(ADMIN_CONN_STRING);
         pqxx::nontransaction ntxn(admin_conn);
         auto result = ntxn.exec(
-            "SELECT 1 FROM pgDatabase WHERE datname = 'loanDatabase'"
+            "SELECT 1 FROM pg_Database WHERE datname = 'loanDatabase'"
         );
         if (result.empty())
             ntxn.exec("CREATE DATABASE loanDatabase");
