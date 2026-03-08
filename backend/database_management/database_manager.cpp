@@ -51,7 +51,7 @@ std::unordered_map<DataRequest, std::weak_ptr<std::unordered_map<Date, double>>>
     DataBaseManager::pay_day_cache;
 
 static const std::string CONN_STRING =
-    "dbname=loan_database user=postgres password=sua_nova_senha host=127.0.0.1 port=5432";
+    "dbname=loanDatabase user=postgres password=sua_nova_senha host=127.0.0.1 port=5432";
 
 static const std::string ADMIN_CONN_STRING =
     "dbname=postgres user=postgres password=sua_nova_senha host=127.0.0.1 port=5432";
@@ -65,10 +65,10 @@ void DataBaseManager::createDatabase() {
         pqxx::connection admin_conn(ADMIN_CONN_STRING);
         pqxx::nontransaction ntxn(admin_conn);
         auto result = ntxn.exec(
-            "SELECT 1 FROM pg_database WHERE datname = 'loan_database'"
+            "SELECT 1 FROM pgDatabase WHERE datname = 'loanDatabase'"
         );
         if (result.empty())
-            ntxn.exec("CREATE DATABASE loan_database");
+            ntxn.exec("CREATE DATABASE loanDatabase");
     }
 
     // Step 2: create all tables
