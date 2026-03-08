@@ -14,16 +14,6 @@ export function ClientList() {
       client.location.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const getRiskBadge = (score: number) => {
-    if (score >= 80) {
-      return { icon: CheckCircle, color: "text-green-600 bg-green-100", label: "Low" };
-    } else if (score >= 60) {
-      return { icon: AlertCircle, color: "text-yellow-600 bg-yellow-100", label: "Moderate" };
-    } else {
-      return { icon: XCircle, color: "text-red-600 bg-red-100", label: "High" };
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       {/* Header */}
@@ -61,27 +51,21 @@ export function ClientList() {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-3 gap-4 mb-6">
           <div className="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
             <p className="text-sm text-slate-600 mb-1">Total Clients</p>
             <p className="text-3xl font-bold text-slate-900">{clients.length}</p>
           </div>
           <div className="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
-            <p className="text-sm text-slate-600 mb-1">Low Risk</p>
+            <p className="text-sm text-slate-600 mb-1">Bank Connected</p>
             <p className="text-3xl font-bold text-green-600">
-              {clients.filter((c) => c.riskScore >= 80).length}
+              {clients.filter((c) => c.bankConnected).length}
             </p>
           </div>
           <div className="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
-            <p className="text-sm text-slate-600 mb-1">Moderate Risk</p>
+            <p className="text-sm text-slate-600 mb-1">Pending Connection</p>
             <p className="text-3xl font-bold text-yellow-600">
-              {clients.filter((c) => c.riskScore >= 60 && c.riskScore < 80).length}
-            </p>
-          </div>
-          <div className="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
-            <p className="text-sm text-slate-600 mb-1">High Risk</p>
-            <p className="text-3xl font-bold text-red-600">
-              {clients.filter((c) => c.riskScore < 60).length}
+              {clients.filter((c) => !c.bankConnected).length}
             </p>
           </div>
         </div>
@@ -102,10 +86,7 @@ export function ClientList() {
                     Location
                   </th>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-slate-700 uppercase tracking-wider">
-                    Risk Score
-                  </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-700 uppercase tracking-wider">
-                    Status
+                    Bank Status
                   </th>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-slate-700 uppercase tracking-wider">
                     Actions
@@ -114,9 +95,6 @@ export function ClientList() {
               </thead>
               <tbody className="divide-y divide-slate-200">
                 {filteredClients.map((client) => {
-                  const riskBadge = getRiskBadge(client.riskScore);
-                  const RiskIcon = riskBadge.icon;
-
                   return (
                     <tr
                       key={client.id}
@@ -125,7 +103,7 @@ export function ClientList() {
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
                           <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                            {client.avatar}
+                            {client.name.split(' ').map(n => n[0]).join('').toUpperCase()}
                           </div>
                           <div>
                             <p className="font-semibold text-slate-900">{client.name}</p>
@@ -140,17 +118,19 @@ export function ClientList() {
                         <p className="text-sm text-slate-900">{client.location}</p>
                       </td>
                       <td className="px-6 py-4">
-                        <div className="flex items-center gap-2">
-                          <span className="text-2xl font-bold text-slate-900">
-                            {client.riskScore}
+                        <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-lg ${
+                          client.bankConnected 
+                            ? 'text-green-600 bg-green-100' 
+                            : 'text-yellow-600 bg-yellow-100'
+                        }`}>
+                          {client.bankConnected ? (
+                            <CheckCircle className="w-4 h-4" />
+                          ) : (
+                            <AlertCircle className="w-4 h-4" />
+                          )}
+                          <span className="text-xs font-semibold">
+                            {client.bankConnected ? 'Connected' : 'Pending'}
                           </span>
-                          <span className="text-sm text-slate-500">/100</span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-lg ${riskBadge.color}`}>
-                          <RiskIcon className="w-4 h-4" />
-                          <span className="text-xs font-semibold">{riskBadge.label}</span>
                         </div>
                       </td>
                       <td className="px-6 py-4">

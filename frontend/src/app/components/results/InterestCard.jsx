@@ -9,7 +9,7 @@ export default function InterestCard({ rate, probability }) {
             </h2>
             <div className="mt-4 flex items-center gap-2 bg-indigo-800/50 p-3 rounded-xl">
                 <div className="flex-1 text-xs">
-                    <span className="block font-bold">Repayment Probability:</span>
+                    <span className="block font-bold">Default Probability:</span>
                     <span className="text-indigo-200">
                         {(probability * 100 || 0).toFixed(1)}%
                     </span>

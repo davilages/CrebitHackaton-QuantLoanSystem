@@ -18,12 +18,12 @@ export default function SensitivitySweep({ data }) {
                         </div>
                         <div className="text-right">
                             <p className="text-xs font-bold text-slate-700">
-                                {(item.repayment_probability * 100).toFixed(0)}% Solvency
+                                {((1 - item.repayment_probability) * 100).toFixed(0)}% Default Risk
                             </p>
                             <div className="w-20 h-1.5 bg-slate-200 rounded-full mt-1">
                                 <div
-                                    className="h-full bg-green-500 rounded-full"
-                                    style={{ width: `${item.repayment_probability * 100}%` }}
+                                    className="h-full bg-red-500 rounded-full"
+                                    style={{ width: `${(1 - item.repayment_probability) * 100}%` }}
                                 />
                             </div>
                         </div>

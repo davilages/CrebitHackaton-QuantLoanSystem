@@ -32,7 +32,7 @@ export function SensitivityAnalysis({ sweepData, recommendedRate }: SensitivityA
         <div className="space-y-3">
           {sweepData.map((item, index) => {
             const isRecommended = Math.abs(item.interest_rate - recommendedRate) < 0.1;
-            const probability = item.repayment_probability * 100; // Convert to percentage
+            const probability = (1 - item.repayment_probability) * 100; // Convert to default probability percentage
 
             return (
               <div
@@ -66,7 +66,7 @@ export function SensitivityAnalysis({ sweepData, recommendedRate }: SensitivityA
 
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-slate-600">Repayment Probability</span>
+                    <span className="text-slate-600">Default Probability</span>
                     <span className="font-bold text-slate-900">{probability.toFixed(1)}%</span>
                   </div>
 
@@ -74,9 +74,9 @@ export function SensitivityAnalysis({ sweepData, recommendedRate }: SensitivityA
                   <Progress
                     value={probability}
                     className={`h-3 ${
-                      probability >= 80
+                      probability <= 20
                         ? "[&>div]:bg-green-500"
-                        : probability >= 60
+                        : probability <= 40
                         ? "[&>div]:bg-yellow-500"
                         : "[&>div]:bg-red-500"
                     }`}

@@ -22,20 +22,20 @@ export default function SimulationResults({ results }: SimulationResultsProps): 
 			<div className="lg:col-span-1 space-y-6">
 				<InterestCard
 					rate={recommended_interest_rate}
-					probability={statistics?.repayment_probability}
+					probability={1 - (statistics?.repayment_probability || 0)}
 				/>
 
 				{/* Novo StatsGrid */}
 				<StatsGrid
 					avgProfit={statistics?.avg_profit || 0}
 					stdDev={statistics?.profit_std_dev || 0}
-					confidenceLower={statistics?.confidence_lower || 0}
-					confidenceUpper={statistics?.confidence_upper || 0}
+					confidenceLower={statistics?.confidence_interval?.lower || 0}
+					confidenceUpper={statistics?.confidence_interval?.upper || 0}
 				/>
 
 				{/* Novo RiskCard */}
 				<RiskCard
-					riskScore={Math.round((statistics?.repayment_probability || 0) * 100)}
+					riskScore={Math.round((1 - (statistics?.repayment_probability || 0)) * 100)}
 					occupation={request?.occupation || "Not provided"}
 					location={request?.location || "Not provided"}
 				/>

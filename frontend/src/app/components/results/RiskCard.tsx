@@ -9,8 +9,8 @@ interface RiskCardProps {
 
 export function RiskCard({ riskScore, occupation, location }: RiskCardProps) {
   const getRiskLevel = (score: number) => {
-    if (score >= 80) return { label: "Low", color: "green", icon: CheckCircle };
-    if (score >= 60) return { label: "Moderate", color: "yellow", icon: Shield };
+    if (score <= 20) return { label: "Low", color: "green", icon: CheckCircle };
+    if (score <= 40) return { label: "Moderate", color: "yellow", icon: Shield };
     return { label: "High", color: "red", icon: AlertTriangle };
   };
 
