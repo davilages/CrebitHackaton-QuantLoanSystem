@@ -5,6 +5,8 @@
 #include <memory>
 #include <iostream>
 #include <functional>
+#include <ctime>
+
 
 struct _market_context {
     int day;
@@ -120,22 +122,6 @@ inline int day_of_week(const _date& d) {
     return t.tm_wday;
 }
 
-namespace std {
-    template <>
-    struct hash<_date> {
-        size_t operator()(const _date& d) const {
-            size_t h = 0;
-            auto combine = [&](size_t v) {
-                h ^= v + 0x9e3779b9 + (h << 6) + (h >> 2);
-            };
-            combine(hash<int>{}(d.day));
-            combine(hash<int>{}(d.month));
-            combine(hash<int>{}(d.year));
-            return h;
-        }
-    };
-}
-
 struct _data_request {
     size_t resolution;
     size_t ssn; // 0 refers to any
@@ -143,28 +129,39 @@ struct _data_request {
     size_t job;
 };
 
-namespace std {
-    template <>
-    struct hash<_data_request> {
-        size_t operator()(const _data_request& dr) const {
-            // Função auxiliar simples para combinar hashes
-            auto hash_combine = [](size_t& seed, size_t v) {
-                seed ^= v + 0x9e3779b9 + (seed << 6) + (seed >> 2);
-            };
-
-            size_t h = 0;
-            hash_combine(h, hash<size_t>{}(dr.resolution));
-            hash_combine(h, hash<size_t>{}(dr.ssn));
-            hash_combine(h, hash<size_t>{}(dr.location));
-            hash_combine(h, hash<size_t>{}(dr.job));
-            
-            return h;
-        }
-    };
-}
 
 using DataRequest = struct _data_request;
 using MB = struct _market_behavior;
 using MC = struct _market_context;
 using variation_dp = std::unordered_map<MC, std::pair<double,double>>;
 using Date = struct _date;
+
+// ── operator== for unordered_map keys ────────────────────────────────
+
+inline bool operator==(const _data_request& a, const _data_request& b) {
+    return a.resolution == b.resolution &&
+           a.ssn        == b.ssn        &&
+           a.location   == b.location   &&
+           a.job        == b.job;
+}
+
+// ── std::hash specializations ─────────────────────────────────────────
+
+namespace std {
+    template<> struct hash<_date> {
+        size_t operator()(const _date& d) const noexcept {
+            size_t h = d.year * 10000 + d.month * 100 + d.day;
+            return hash<size_t>{}(h);
+        }
+    };
+
+    template<> struct hash<_data_request> {
+        size_t operator()(const _data_request& r) const noexcept {
+            size_t h = r.resolution;
+            h ^= hash<size_t>{}(r.ssn)      + 0x9e3779b9 + (h << 6) + (h >> 2);
+            h ^= hash<size_t>{}(r.location) + 0x9e3779b9 + (h << 6) + (h >> 2);
+            h ^= hash<size_t>{}(r.job)      + 0x9e3779b9 + (h << 6) + (h >> 2);
+            return h;
+        }
+    };
+}
