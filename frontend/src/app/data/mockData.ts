@@ -1,4 +1,4 @@
-// Mock data para simulação de clientes e resultados de Monte Carlo
+// Mock data for client simulation and Monte Carlo results
 
 export interface Client {
   id: string;
@@ -20,7 +20,7 @@ export interface MonteCarloRequest {
 
 export interface MonteCarloStatistics {
   avg_profit: number;
-  repayment_probability: number;
+  default_probability: number;
   profit_std_dev: number;
   confidence_interval: {
     lower: number;
@@ -31,7 +31,7 @@ export interface MonteCarloStatistics {
 export interface InterestRateSweep {
   interest_rate: number;
   avg_profit: number;
-  repayment_probability: number;
+  default_probability: number;
 }
 
 export interface MonteCarloResponse {

@@ -48,7 +48,7 @@ interface ApiResponse {
 }
 
 interface UserData {
-  [key: string]: any; // TODO: Definir interface mais específica
+  [key: string]: any; // TODO: Define more specific interface
 }
 
 export const apiService = {
@@ -84,7 +84,7 @@ export const apiService = {
       }
     };
 
-    // Formata os "paths" para o gráfico de linhas (opcional, mas legal para o visual)
+    // Format the "paths" for the line chart (optional, but nice for the visual)
     const formattedPaths: SimulationDataPoint[] = realBackendData.response.paths[0].map((val: number, i: number) => ({
       name: `T${i+1}`,
       avg: val,
@@ -94,7 +94,7 @@ export const apiService = {
 
     return {
       ...realBackendData,
-      simulationData: formattedPaths // Injeta os dados formatados para o gráfico
+      simulationData: formattedPaths // Injects the formatted data for the chart
     };
   }
 };

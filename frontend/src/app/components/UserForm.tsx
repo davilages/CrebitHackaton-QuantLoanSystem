@@ -29,7 +29,7 @@ export default function UserForm({ onSubmit, isLoading }: { onSubmit: (data: any
       {/* Campo de Nome - Mais compacto */}
       <div className="space-y-1.5">
         <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground flex items-center gap-2">
-          <User size={12} /> Nome do Cliente
+          <User size={12} /> Client Name
         </label>
         <input
           type="text"
@@ -37,16 +37,16 @@ export default function UserForm({ onSubmit, isLoading }: { onSubmit: (data: any
           value={formData.name}
           onChange={handleChange}
           className="w-full px-4 py-2.5 bg-input-background border border-border rounded-xl text-sm focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-          placeholder="Ex: João Silva"
+          placeholder="Ex: John Doe"
           required
         />
       </div>
 
       <div className="grid grid-cols-2 gap-3">
-        {/* Profissão */}
+        {/* Profession */}
         <div className="space-y-1.5">
           <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground flex items-center gap-2">
-            <Briefcase size={12} /> Ocupação
+            <Briefcase size={12} /> Occupation
           </label>
           <select
             name="profession"
@@ -60,10 +60,10 @@ export default function UserForm({ onSubmit, isLoading }: { onSubmit: (data: any
           </select>
         </div>
 
-        {/* Localização */}
+        {/* Location */}
         <div className="space-y-1.5">
           <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground flex items-center gap-2">
-            <MapPin size={12} /> Região
+            <MapPin size={12} /> Region
           </label>
           <select
             name="location"
@@ -81,7 +81,7 @@ export default function UserForm({ onSubmit, isLoading }: { onSubmit: (data: any
       <div className="grid grid-cols-2 gap-3">
         <div className="space-y-1.5">
           <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground flex items-center gap-2">
-            <DollarSign size={12} /> Renda (R$)
+            <DollarSign size={12} /> Income ($)
           </label>
           <input
             type="number"
@@ -94,7 +94,7 @@ export default function UserForm({ onSubmit, isLoading }: { onSubmit: (data: any
         </div>
         <div className="space-y-1.5">
           <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground flex items-center gap-2">
-            <Calculator size={12} /> Gastos (R$)
+            <Calculator size={12} /> Expenses ($)
           </label>
           <input
             type="number"
@@ -107,11 +107,11 @@ export default function UserForm({ onSubmit, isLoading }: { onSubmit: (data: any
         </div>
       </div>
 
-      {/* Risco Slider - Estilo Profissional */}
+      {/* Risk Slider - Professional Style */}
       <div className="space-y-2 p-4 bg-slate-50 rounded-2xl border border-slate-100">
         <div className="flex justify-between items-center">
           <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
-            Apetite de Risco
+            Risk Appetite
           </label>
           <span className="text-sm font-black text-primary bg-white px-2 py-0.5 rounded shadow-sm border border-border">
             {formData.riskTolerance}/10
@@ -127,7 +127,7 @@ export default function UserForm({ onSubmit, isLoading }: { onSubmit: (data: any
         />
       </div>
 
-      {/* Botão de Ação Principal */}
+      {/* Main Action Button */}
       <button
         type="submit"
         disabled={isLoading}
@@ -138,14 +138,14 @@ export default function UserForm({ onSubmit, isLoading }: { onSubmit: (data: any
         ) : (
           <>
             <TrendingUp size={18} />
-            Rodar Simulação
+            Run Simulation
           </>
         )}
       </button>
 
-      {/* Nota técnica de rodapé */}
+      {/* Technical Footer Note */}
       <p className="text-[10px] text-center text-muted-foreground leading-relaxed px-4">
-        Ajustes nestes parâmetros recalcularão a <b>Solvência Preditiva</b> via Monte Carlo em tempo real.
+        Adjustments to these parameters will recalculate the <b>Predictive Solvency</b> via Monte Carlo in real time.
       </p>
     </form>
   );

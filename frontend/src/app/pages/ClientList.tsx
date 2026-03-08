@@ -16,11 +16,11 @@ export function ClientList() {
 
   const getRiskBadge = (score: number) => {
     if (score >= 80) {
-      return { icon: CheckCircle, color: "text-green-600 bg-green-100", label: "Baixo" };
+      return { icon: CheckCircle, color: "text-green-600 bg-green-100", label: "Low" };
     } else if (score >= 60) {
-      return { icon: AlertCircle, color: "text-yellow-600 bg-yellow-100", label: "Moderado" };
+      return { icon: AlertCircle, color: "text-yellow-600 bg-yellow-100", label: "Moderate" };
     } else {
-      return { icon: XCircle, color: "text-red-600 bg-red-100", label: "Alto" };
+      return { icon: XCircle, color: "text-red-600 bg-red-100", label: "High" };
     }
   };
 
@@ -31,14 +31,14 @@ export function ClientList() {
         <div className="max-w-7xl mx-auto px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-slate-900">Carteira de Clientes</h1>
+              <h1 className="text-3xl font-bold text-slate-900">Client Portfolio</h1>
               <p className="text-slate-600 mt-1">
-                Gerencie e analise crédito para trabalhadores da Gig Economy
+                Manage and analyze credit for Gig Economy workers
               </p>
             </div>
             <button className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl font-semibold transition-colors shadow-sm">
               <UserPlus className="w-5 h-5" />
-              Adicionar Cliente
+              Add Client
             </button>
           </div>
         </div>
@@ -52,7 +52,7 @@ export function ClientList() {
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
             <input
               type="text"
-              placeholder="Buscar por nome, ocupação ou localização..."
+              placeholder="Search by name, occupation or location..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-12 pr-4 py-3 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
@@ -63,23 +63,23 @@ export function ClientList() {
         {/* Stats Cards */}
         <div className="grid grid-cols-4 gap-4 mb-6">
           <div className="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
-            <p className="text-sm text-slate-600 mb-1">Total de Clientes</p>
+            <p className="text-sm text-slate-600 mb-1">Total Clients</p>
             <p className="text-3xl font-bold text-slate-900">{clients.length}</p>
           </div>
           <div className="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
-            <p className="text-sm text-slate-600 mb-1">Risco Baixo</p>
+            <p className="text-sm text-slate-600 mb-1">Low Risk</p>
             <p className="text-3xl font-bold text-green-600">
               {clients.filter((c) => c.riskScore >= 80).length}
             </p>
           </div>
           <div className="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
-            <p className="text-sm text-slate-600 mb-1">Risco Moderado</p>
+            <p className="text-sm text-slate-600 mb-1">Moderate Risk</p>
             <p className="text-3xl font-bold text-yellow-600">
               {clients.filter((c) => c.riskScore >= 60 && c.riskScore < 80).length}
             </p>
           </div>
           <div className="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
-            <p className="text-sm text-slate-600 mb-1">Risco Alto</p>
+            <p className="text-sm text-slate-600 mb-1">High Risk</p>
             <p className="text-3xl font-bold text-red-600">
               {clients.filter((c) => c.riskScore < 60).length}
             </p>
@@ -93,22 +93,22 @@ export function ClientList() {
               <thead className="bg-slate-50 border-b border-slate-200">
                 <tr>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-slate-700 uppercase tracking-wider">
-                    Cliente
+                    Client
                   </th>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-slate-700 uppercase tracking-wider">
-                    Ocupação
+                    Occupation
                   </th>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-slate-700 uppercase tracking-wider">
-                    Localização
+                    Location
                   </th>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-slate-700 uppercase tracking-wider">
-                    Score de Risco
+                    Risk Score
                   </th>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-slate-700 uppercase tracking-wider">
                     Status
                   </th>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-slate-700 uppercase tracking-wider">
-                    Ações
+                    Actions
                   </th>
                 </tr>
               </thead>
@@ -158,7 +158,7 @@ export function ClientList() {
                           to={`/analysis/${client.id}`}
                           className="inline-block px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-lg transition-colors"
                         >
-                          Analisar
+                          Analyze
                         </Link>
                       </td>
                     </tr>
