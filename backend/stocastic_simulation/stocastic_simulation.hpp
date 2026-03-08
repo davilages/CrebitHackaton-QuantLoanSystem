@@ -1,8 +1,12 @@
+#pragma once
+
 #include <vector>
 #include <memory>
 #include <shared_mutex>
 #include <unordered_map>
 #include "../backend/datatypes.hpp"
+
+#define N_SIMULATIONS 100_000
 
 class StochasticSimulator {
     private:
